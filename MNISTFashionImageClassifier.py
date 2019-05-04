@@ -19,7 +19,7 @@ class MNIST_FashionImageClassifier(nn.Module):
 
         self.criterion = nn.NLLLoss()
         self.imagepath = imgpath
-        self.optimizer = optim.SGD(self.model.parameters(), lr=0.003)
+        self.optimizer = optim.Adam(self.model.parameters(), lr=0.003)
 
     def preprocessImage(self):
         #Loading and preprocessing image
