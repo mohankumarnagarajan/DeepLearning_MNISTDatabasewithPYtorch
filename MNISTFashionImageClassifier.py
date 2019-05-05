@@ -15,11 +15,12 @@ class MNIST_FashionImageClassifier(nn.Module):
         self.n_input = 784
         self.n_hidden = [256,128,64]
         self.n_output = 10
-        self.model = nn.Sequential((OrderedDict([('fc1', nn.Linear(self.n_input,self.n_hidden[0])), ('relu1',nn.ReLU()), ('fc2',nn.Linear(self.n_hidden[0],self.n_hidden[1])), ('relu2',nn.ReLU()), ('fc3',nn.Linear(self.n_hidden[1],self.n_hidden[2])), ('relu3',nn.ReLU()), ('fc4',nn.Linear(self.n_hidden[2],self.n_output)), ('Log_softmax',nn.LogSoftmax(dim=1))])))
+        self.model = nn.Sequential((OrderedDict([('fc1', nn.Linear(self.n_input,self.n_hidden[0])), ('relu1',nn.ReLU()), ('dp1',dropout), ('fc2',nn.Linear(self.n_hidden[0],self.n_hidden[1])), ('relu2',nn.ReLU()), ('dp2',dropout), ('fc3',nn.Linear(self.n_hidden[1],self.n_hidden[2])), ('relu3',nn.ReLU()), ('dp3',dropout), ('fc4',nn.Linear(self.n_hidden[2],self.n_output)), ('Log_softmax',nn.LogSoftmax(dim=1))])))
 
         self.criterion = nn.NLLLoss()
         self.imagepath = imgpath
         self.optimizer = optim.Adam(self.model.parameters(), lr=0.003)
+        self.dropout = nn.Dropout(p=0.2)
 
     def preprocessImage(self):
         #Loading and preprocessing image
